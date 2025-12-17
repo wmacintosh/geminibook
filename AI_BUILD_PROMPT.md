@@ -17,9 +17,11 @@ Create a warm, elegant web interface that serves as both a digital recipe reposi
 - **Tailwind CSS** (via CDN) for styling
 
 ### Key Dependencies
-- `@google/genai` (v0.1.0) - Google Gemini API integration
+- `@google/genai` (v1.34.0+) - Google Gen AI SDK (unified SDK for Gemini, Imagen, Veo, etc.)
 - `lucide-react` (v0.344.0) - Icon library
 - TypeScript 5.8.2
+
+**Note:** This app uses the new `@google/genai` package, which is the unified Google Gen AI SDK that replaced the deprecated `@google/generative-ai` package. See [migration guide](https://ai.google.dev/gemini-api/docs/migrate) for details.
 
 ### Build & Development
 - Vite dev server on port 3000
@@ -281,8 +283,12 @@ Each family member has an assigned color for visual identification throughout th
 // Environment variable configuration
 process.env.API_KEY = GEMINI_API_KEY
 
-// SDK initialization
+// SDK initialization with new @google/genai package
 import { GoogleGenAI } from "@google/genai";
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+// Or dynamic import (as used in the app)
+const { GoogleGenAI } = await import("@google/genai");
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 ```
 
